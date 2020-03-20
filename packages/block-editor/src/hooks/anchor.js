@@ -39,14 +39,15 @@ export function addAttribute( settings ) {
 	}
 	if ( hasBlockSupport( settings, 'anchor' ) ) {
 		// Gracefully handle if attributes are undefined.
-		Object.assign( settings.attributes, {
+		settings.attributes = {
+			...settings.attributes,
 			anchor: {
 				type: 'string',
 				source: 'attribute',
 				attribute: 'id',
 				selector: '*',
 			},
-		} );
+		};
 	}
 
 	return settings;

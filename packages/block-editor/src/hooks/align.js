@@ -90,11 +90,12 @@ export function addAttribute( settings ) {
 	}
 	if ( hasBlockSupport( settings, 'align' ) ) {
 		// Gracefully handle if attributes are undefined.
-		Object.assign( settings.attributes, {
+		settings.attributes = {
+			...settings.attributes,
 			align: {
 				type: 'string',
 			},
-		} );
+		};
 	}
 
 	return settings;

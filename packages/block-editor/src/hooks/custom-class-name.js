@@ -33,11 +33,12 @@ import { InspectorAdvancedControls } from '../components';
 export function addAttribute( settings ) {
 	if ( hasBlockSupport( settings, 'customClassName', true ) ) {
 		// Gracefully handle if attributes are undefined.
-		Object.assign( settings.attributes, {
+		settings.attributes = {
+			...settings.attributes,
 			className: {
 				type: 'string',
 			},
-		} );
+		};
 	}
 
 	return settings;
