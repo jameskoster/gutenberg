@@ -2,7 +2,7 @@
  * External dependencies
  */
 import classnames from 'classnames';
-import { assign, get, has, includes, without } from 'lodash';
+import { get, has, includes, without } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -89,8 +89,8 @@ export function addAttribute( settings ) {
 		return settings;
 	}
 	if ( hasBlockSupport( settings, 'align' ) ) {
-		// Use Lodash's assign to gracefully handle if attributes are undefined
-		settings.attributes = assign( settings.attributes, {
+		// Gracefully handle if attributes are undefined.
+		Object.assign( settings.attributes, {
 			align: {
 				type: 'string',
 			},

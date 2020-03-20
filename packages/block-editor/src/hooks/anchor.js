@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { assign, has } from 'lodash';
+import { has } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -38,8 +38,8 @@ export function addAttribute( settings ) {
 		return settings;
 	}
 	if ( hasBlockSupport( settings, 'anchor' ) ) {
-		// Use Lodash's assign to gracefully handle if attributes are undefined
-		settings.attributes = assign( settings.attributes, {
+		// Gracefully handle if attributes are undefined.
+		Object.assign( settings.attributes, {
 			anchor: {
 				type: 'string',
 				source: 'attribute',

@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { assign, difference, compact } from 'lodash';
+import { difference, compact } from 'lodash';
 import classnames from 'classnames';
 
 /**
@@ -24,8 +24,8 @@ import {
  */
 export function addAttribute( settings ) {
 	if ( hasBlockSupport( settings, 'customClassName', true ) ) {
-		// Use Lodash's assign to gracefully handle if attributes are undefined
-		settings.attributes = assign( settings.attributes, {
+		// Gracefully handle if attributes are undefined.
+		Object.assign( settings.attributes, {
 			className: {
 				type: 'string',
 			},
