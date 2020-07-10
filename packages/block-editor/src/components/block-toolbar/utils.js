@@ -8,11 +8,22 @@ import { noop } from 'lodash';
 import { useDispatch } from '@wordpress/data';
 import { useState, useRef, useEffect, useCallback } from '@wordpress/element';
 
-const { clearTimeout, requestAnimationFrame, setTimeout } = window;
+const {
+	clearTimeout,
+	requestAnimationFrame,
+	cancelAnimationFrame,
+	setTimeout,
+} = window;
 const DEBOUNCE_TIMEOUT = 250;
 
 /**
- * Hook that creates a showMover state, as well as debounced show/hide callbacks
+ * Hook that creates a showMover state, as well as debounced show/hide callbacks.
+ *
+ * @param {Object}   props                       Component props.
+ * @param {Object}   props.ref                   Element reference.
+ * @param {boolean}  props.isFocused             Whether the component has current focus.
+ * @param {number}   [props.debounceTimeout=250] Debounce timeout in milliseconds.
+ * @param {Function} [props.onChange=noop]       Callback function.
  */
 export function useDebouncedShowMovers( {
 	ref,
@@ -84,6 +95,11 @@ export function useDebouncedShowMovers( {
 /**
  * Hook that provides a showMovers state and gesture events for DOM elements
  * that interact with the showMovers state.
+ *
+ * @param {Object}   props                       Component props.
+ * @param {Object}   props.ref                   Element reference.
+ * @param {number}   [props.debounceTimeout=250] Debounce timeout in milliseconds.
+ * @param {Function} [props.onChange=noop]       Callback function.
  */
 export function useShowMoversGestures( {
 	ref,
@@ -153,6 +169,8 @@ export function useShowMoversGestures( {
 	};
 }
 
+let requestAnimationFrameId;
+
 /**
  * Hook that toggles the highlight (outline) state of a block
  *
@@ -171,10 +189,16 @@ export function useToggleBlockHighlight( clientId ) {
 	);
 
 	useEffect( () => {
+		// On mount, we make sure to cancel any pending animation frame request
+		// that hasn't been completed yet. Components like NavigableToolbar may
+		// mount and unmount quickly.
+		if ( requestAnimationFrameId ) {
+			cancelAnimationFrame( requestAnimationFrameId );
+		}
 		return () => {
 			// Sequences state change to enable editor updates (e.g. cursor
 			// position) to render correctly.
-			requestAnimationFrame( () => {
+			requestAnimationFrameId = requestAnimationFrame( () => {
 				updateBlockHighlight( false );
 			} );
 		};

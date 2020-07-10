@@ -1,4 +1,33 @@
-## Master
+<!-- Learn how to maintain this file at https://github.com/WordPress/gutenberg/tree/master/packages#maintaining-changelogs. -->
+
+## Unreleased
+
+### Breaking Changes
+
+-   The `config` and `mappings` options in `.wp-env.json` are now merged with any overrides instead of being overwritten.
+-   The first listed theme is no longer activated when running wp-env start, since this overwrote whatever theme the user manually activated.
+
+### New Feature
+
+-   You may now specify specific configuration for different environments using `env.tests` or `env.development` in `.wp-env.json`.
+
+### Bug Fixes
+
+-   `wp-env start` performance is now 2x faster after first install.
+
+## 1.6.0-rc.0 (2020-06-24)
+
+-   `wp-env destroy` now removes dangling docker volumes and networks associated with the WordPress environment.
+
+## 1.4.0 (2020-05-28)
+
+### New Feature
+
+-   Add support for running interactive commands. Examples: `wp-env run cli wp shell` and `wp-env run cli bash`.
+-   View php and WordPress log output with the new `wp-env logs` command.
+-   Clean up your local environment with the new `wp-env destroy` command.
+-   Expose Docker service for running phpunit commands.
+-   You may now mount local directories to any location within the WordPress install. For example, you may specify `"wp-content/mu-plugins": "./path/to/mu-plugins"` to add mu-plugins.
 
 ## 1.1.0 (2020-04-01)
 
