@@ -1,5 +1,6 @@
 .edit-site-header {
 	align-items: center;
+	background-color: $white;
 	display: flex;
 	height: $header-height;
 	box-sizing: border-box;
@@ -12,6 +13,7 @@
 
 	.edit-site-header_center {
 		display: flex;
+		align-items: center;
 		height: 100%;
 	}
 
@@ -55,6 +57,11 @@ body.is-navigation-sidebar-open {
  */
 
 .edit-site-header__actions {
+	display: inline-flex;
+	align-items: center;
+	flex-wrap: wrap;
+	padding-right: $grid-unit-05;
+
 	// Adjust button paddings to scale better to mobile.
 	.editor-post-saved-state,
 	.components-button.components-button {
@@ -74,13 +81,6 @@ body.is-navigation-sidebar-open {
 	.interface-pinned-items .components-button {
 		margin-right: 0;
 	}
-}
-
-.edit-site-header__actions {
-	display: inline-flex;
-	align-items: center;
-	flex-wrap: wrap;
-	padding-right: $grid-unit-05;
 
 	@include break-small () {
 		padding-right: $grid-unit-20;
